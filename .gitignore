@@ -1,0 +1,16 @@
+
+*.sassc
+
+*.scssc
+
+design/bulma-0.9.0/
+
+design/
+
+ecopy/accounting/__pycache__/
+
+ecopy/accounting/migrations/__pycache__/
+
+ecopy/ecopy/__pycache__/
+
+ecopy/staticfiles/

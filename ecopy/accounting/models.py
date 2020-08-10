@@ -5,9 +5,9 @@ import numpy as np
 # CATEGORY CLASSES
 # -----------------------------------------------------------------------------
 class BaseCategory(models.Model):
-    name = models.CharField()
-    color = models.CharField()
-    income = models.BooleanField(default=True)
+    name = models.CharField(max_length=100)
+    color = models.CharField(max_length=100)
+    income_type = models.BooleanField(default=True)
 
     class Meta:
         abstract = True
@@ -18,15 +18,15 @@ class Category(BaseCategory):
 
 
 class SubCategory(BaseCategory):
-    main_category = models.ForeignKey(IncomeCategory, on_delete=models.CASCADE)
+    main_category = models.ForeignKey(Category, on_delete=models.CASCADE)
 
 
 # TRANSACTION CLASSES
 # -----------------------------------------------------------------------------
 class Transaction(models.Model):
     amount = models.FloatField()
-    name = models.Charfield(max_length=100)
-    description = models.Charfield(max_length=300)
+    name = models.CharField(max_length=100)
+    description = models.CharField(max_length=300)
     date = models.DateField()
 
     class Meta:
@@ -34,7 +34,7 @@ class Transaction(models.Model):
 
     @property
     def rounded_amount(self):
-        return np.round(amount)
+        return np.round(self.amount)
 
 
 class Income(Transaction):
@@ -42,4 +42,4 @@ class Income(Transaction):
 
 
 class Expense(Transaction):
-    category = models.ForeignKey(ECategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
